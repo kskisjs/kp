@@ -1,0 +1,11 @@
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\bin\Debug\net8.0\BelarusQuiz.Shared.deps.json
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\bin\Debug\net8.0\BelarusQuiz.Shared.dll
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\bin\Debug\net8.0\BelarusQuiz.Shared.pdb
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\obj\Debug\net8.0\BelarusQuiz.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\obj\Debug\net8.0\BelarusQuiz.Shared.AssemblyInfoInputs.cache
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\obj\Debug\net8.0\BelarusQuiz.Shared.AssemblyInfo.cs
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\obj\Debug\net8.0\BelarusQuiz.Shared.csproj.CoreCompileInputs.cache
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\obj\Debug\net8.0\BelarusQuiz.Shared.dll
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\obj\Debug\net8.0\refint\BelarusQuiz.Shared.dll
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\obj\Debug\net8.0\BelarusQuiz.Shared.pdb
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Shared\obj\Debug\net8.0\ref\BelarusQuiz.Shared.dll

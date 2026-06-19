@@ -1,0 +1,14 @@
+<Window x:Class="BelarusQuiz.Client.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Беларусь: Знай свой край"
+        Height="650" Width="1000"
+        MinHeight="600" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#0D1F0F"
+        WindowStyle="SingleBorderWindow">
+
+  <Grid>
+    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+  </Grid>
+</Window>
