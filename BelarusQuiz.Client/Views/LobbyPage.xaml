@@ -1,0 +1,88 @@
+<Page x:Class="BelarusQuiz.Client.Views.LobbyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#0D1F0F">
+  <Grid Margin="40">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <!-- Заголовок -->
+    <Grid Grid.Row="0" Margin="0,0,0,24">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <Button Grid.Column="0" Content="← Выйти" Style="{StaticResource BtnDark}"
+              Height="36" Padding="16,0" Click="BtnLeave_Click"/>
+      <TextBlock Grid.Column="1" Text="ЛОББИ" FontSize="22" FontWeight="Black"
+                 Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+        <TextBlock Text="КОД КОМНАТЫ" FontSize="10" Foreground="#7AAB7C"/>
+        <TextBlock x:Name="TbCode" FontSize="28" FontWeight="Black"
+                   Foreground="#2ECC40"/>
+      </StackPanel>
+    </Grid>
+
+    <!-- Настройки комнаты -->
+    <Border Grid.Row="1" Style="{StaticResource Card}" Margin="0,0,0,20">
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <TextBlock Text="⚔ Режим: Баттл" Foreground="#7AAB7C" FontSize="13" Margin="0,0,24,0"/>
+        <TextBlock x:Name="TbRounds" Foreground="#7AAB7C" FontSize="13" Margin="0,0,24,0"/>
+        <TextBlock x:Name="TbTimer" Foreground="#7AAB7C" FontSize="13"/>
+      </StackPanel>
+    </Border>
+
+    <!-- Список игроков -->
+    <Border Grid.Row="2" Style="{StaticResource Card}">
+      <StackPanel>
+        <TextBlock Text="ИГРОКИ" FontSize="12" FontWeight="Bold"
+                   Foreground="#7AAB7C" Margin="0,0,0,16"/>
+        <ItemsControl x:Name="PlayersList">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border Background="#1E3820" CornerRadius="8" Padding="16,12" Margin="0,0,0,8">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Column="0" Text="👤" FontSize="24" VerticalAlignment="Center"/>
+                  <TextBlock Grid.Column="1" Text="{Binding Nickname}"
+                             FontSize="15" FontWeight="SemiBold"
+                             Foreground="#FFFFFF" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                  <TextBlock Grid.Column="2" Text="{Binding StatusText}"
+                             FontSize="13" FontWeight="Bold"
+                             Foreground="{Binding StatusColor}" VerticalAlignment="Center"/>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock x:Name="TbWaiting" Text="Ожидаем игроков..."
+                   Foreground="#4A6B4C" FontSize="13"
+                   HorizontalAlignment="Center" Margin="0,16,0,0"/>
+      </StackPanel>
+    </Border>
+
+    <!-- Кнопки внизу -->
+    <Grid Grid.Row="3" Margin="0,20,0,0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="20"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Button x:Name="BtnReady" Grid.Column="0"
+              Content="✔  Я ГОТОВ" Style="{StaticResource BtnGreen}"
+              Click="BtnReady_Click"/>
+      <Button x:Name="BtnStart" Grid.Column="2"
+              Content="▶  НАЧАТЬ ИГРУ" Style="{StaticResource BtnGreen}"
+              IsEnabled="False" Click="BtnStart_Click"/>
+    </Grid>
+  </Grid>
+</Page>

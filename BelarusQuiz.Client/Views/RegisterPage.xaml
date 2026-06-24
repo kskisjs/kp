@@ -1,0 +1,280 @@
+﻿<!-- Путь: BelarusQuiz.Client/Views/RegisterPage.xaml  (ЗАМЕНИТЬ) -->
+<Page x:Class="BelarusQuiz.Client.Views.RegisterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Регистрация">
+
+    <Page.Resources>
+        <Style x:Key="BtnGreen" TargetType="Button">
+            <Setter Property="Background" Value="#1A6E30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="10" Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="12" Opacity="0.4"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#22913E"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#155526"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnBack" TargetType="Button">
+            <Setter Property="Background" Value="#0E2212"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#2A4A2C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="38"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#162A1A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Input" TargetType="TextBox">
+            <Setter Property="Background" Value="#0E2212"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#2A4A2C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="CaretBrush" Value="#2ECC40"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="bd" Property="BorderBrush" Value="#2ECC40"/>
+                                <Setter TargetName="bd" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Pass" TargetType="PasswordBox">
+            <Setter Property="Background" Value="#0E2212"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#2A4A2C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="CaretBrush" Value="#2ECC40"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="bd" Property="BorderBrush" Value="#2ECC40"/>
+                                <Setter TargetName="bd" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <!-- Фон -->
+        <Rectangle>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#071209" Offset="0"/>
+                    <GradientStop Color="#0A1C0D" Offset="0.5"/>
+                    <GradientStop Color="#071A0B" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Ellipse Width="500" Height="500" HorizontalAlignment="Left"
+                 VerticalAlignment="Top" Margin="-200,-150,0,0">
+            <Ellipse.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Color="#0D2E12" Offset="0"/>
+                    <GradientStop Color="Transparent" Offset="1"/>
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <!-- Двухколоночный макет -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ══ ЛЕВАЯ ПАНЕЛЬ ══ -->
+            <Grid Grid.Column="0">
+                <Rectangle>
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#071209" Offset="0"/>
+                            <GradientStop Color="#0C1E0F" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Margin="40" MaxWidth="340">
+
+                    <Grid Width="100" Height="100" HorizontalAlignment="Center" Margin="0,0,0,28">
+                        <Ellipse Fill="#132A16">
+                            <Ellipse.Effect>
+                                <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="28" Opacity="0.35"/>
+                            </Ellipse.Effect>
+                        </Ellipse>
+                        <Ellipse Margin="8" Stroke="#2ECC40" StrokeThickness="2" Fill="Transparent"/>
+                        <TextBlock Text="❄" FontSize="48" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <TextBlock Text="СОЗДАЙ АККАУНТ" FontSize="26" FontWeight="Black"
+                               Foreground="White" HorizontalAlignment="Center"
+                               TextAlignment="Center" Margin="0,0,0,10"/>
+                    <TextBlock Text="и начни зарабатывать очки!"
+                               FontSize="14" Foreground="#4A7A50"
+                               HorizontalAlignment="Center" Margin="0,0,0,36"/>
+
+                    <Border Background="#0E2212" CornerRadius="10" Padding="16,12"
+                            Margin="0,0,0,10" BorderBrush="#1A3A1E" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="✅" FontSize="18" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Логин от 3 символов"
+                                       Foreground="#7CB87E" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="#0E2212" CornerRadius="10" Padding="16,12"
+                            Margin="0,0,0,10" BorderBrush="#1A3A1E" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="✅" FontSize="18" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Пароль от 4 символов"
+                                       Foreground="#7CB87E" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="#0E2212" CornerRadius="10" Padding="16,12"
+                            BorderBrush="#1A3A1E" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="✅" FontSize="18" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Никнейм — имя в игре"
+                                       Foreground="#7CB87E" FontSize="13" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <!-- Разделитель -->
+            <Rectangle Grid.Column="0" Width="1" HorizontalAlignment="Right" Fill="#1A3A1E"/>
+
+            <!-- ══ ПРАВАЯ ПАНЕЛЬ: ФОРМА ══ -->
+            <Grid Grid.Column="1">
+                <Rectangle>
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#081009" Offset="0"/>
+                            <GradientStop Color="#0A1A0C" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="48,40">
+
+                        <!-- Назад + заголовок -->
+                        <Grid Margin="0,0,0,28">
+                            <Button Content="←" Style="{StaticResource BtnBack}"
+                                    HorizontalAlignment="Left" Click="BtnBack_Click"/>
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="Регистрация" FontSize="22" FontWeight="Bold"
+                                           Foreground="White" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Заполните форму ниже" FontSize="13"
+                                           Foreground="#4A7A50" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Никнейм -->
+                        <TextBlock Text="НИКНЕЙМ (имя в игре)" FontSize="11" FontWeight="Bold"
+                                   Foreground="#4A8A50" Margin="0,0,0,7"/>
+                        <TextBox x:Name="TbNickname" Style="{StaticResource Input}" Margin="0,0,0,18"/>
+
+                        <!-- Логин -->
+                        <TextBlock Text="ЛОГИН" FontSize="11" FontWeight="Bold"
+                                   Foreground="#4A8A50" Margin="0,0,0,7"/>
+                        <TextBox x:Name="TbLogin" Style="{StaticResource Input}" Margin="0,0,0,18"/>
+
+                        <!-- Пароль -->
+                        <TextBlock Text="ПАРОЛЬ" FontSize="11" FontWeight="Bold"
+                                   Foreground="#4A8A50" Margin="0,0,0,7"/>
+                        <PasswordBox x:Name="PbPassword" Style="{StaticResource Pass}" Margin="0,0,0,18"/>
+
+                        <!-- Подтверждение -->
+                        <TextBlock Text="ПОДТВЕРДИТЕ ПАРОЛЬ" FontSize="11" FontWeight="Bold"
+                                   Foreground="#4A8A50" Margin="0,0,0,7"/>
+                        <PasswordBox x:Name="PbConfirm" Style="{StaticResource Pass}" Margin="0,0,0,28"/>
+
+                        <!-- Кнопка -->
+                        <Button Content="ЗАРЕГИСТРИРОВАТЬСЯ" Style="{StaticResource BtnGreen}"
+                                Click="BtnRegister_Click" Margin="0,0,0,14"/>
+
+                        <!-- Статус -->
+                        <TextBlock x:Name="TbStatus" Text="" Foreground="#E74C3C"
+                                   FontSize="13" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
