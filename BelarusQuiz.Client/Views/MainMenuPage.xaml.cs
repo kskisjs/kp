@@ -1,5 +1,3 @@
-// Путь: BelarusQuiz.Client/Views/MainMenuPage.xaml.cs  (ЗАМЕНИТЬ)
-
 using System.Windows;
 using System.Windows.Controls;
 using BelarusQuiz.Shared.Enums;
@@ -20,20 +18,18 @@ public partial class MainMenuPage : Page
     private void UpdatePlayerInfo()
     {
         if (!_app.IsLoggedIn) return;
-
         TbNickname.Text = _app.Nickname;
         TbLevel.Text = $"Уровень {_app.Level}";
         TbLevelBig.Text = $"Ур. {_app.Level}";
         TbInitials.Text = _app.Nickname.Length >= 2
             ? _app.Nickname[..2].ToUpper()
             : _app.Nickname.ToUpper();
-
         TbWins.Text = _app.UserWins.ToString();
         TbGames.Text = _app.UserGamesPlayed.ToString();
         TbTotalScore.Text = _app.UserTotalScore.ToString();
-        // PbXP убран из XAML — строку ниже не нужно
     }
 
+    // ── БЫСТРАЯ ИГРА: создаёт комнату с дефолтными настройками и ждёт игрока ──
     private async void BtnQuick_Click(object sender, RoutedEventArgs e)
     {
         if (!ValidateLogin()) return;
@@ -42,24 +38,20 @@ public partial class MainMenuPage : Page
         {
             await EnsureConnected();
             AttachHandlers();
+            // Все категории, 10 раундов, 15 сек — быстро и без настроек
             await _app.SignalR.CreateRoom(_app.Nickname, 10, 15, QuizCategory.All);
         }
         catch (Exception ex) { SetStatus("❌ " + ex.Message); }
     }
 
-    private async void BtnCreate_Click(object sender, RoutedEventArgs e)
+    // ── СОЗДАТЬ КОМНАТУ: переходим на страницу настроек ──────────────────────
+    private void BtnCreate_Click(object sender, RoutedEventArgs e)
     {
         if (!ValidateLogin()) return;
-        SetStatus("Подключение...");
-        try
-        {
-            await EnsureConnected();
-            AttachHandlers();
-            await _app.SignalR.CreateRoom(_app.Nickname, 10, 15, QuizCategory.All);
-        }
-        catch (Exception ex) { SetStatus("❌ " + ex.Message); }
+        _app.Nav.Navigate(new CreateRoomPage());
     }
 
+    // ── ПОДКЛЮЧИТЬСЯ ─────────────────────────────────────────────────────────
     private async void BtnJoin_Click(object sender, RoutedEventArgs e)
     {
         if (!ValidateLogin()) return;
@@ -85,7 +77,11 @@ public partial class MainMenuPage : Page
             "🌿 Беларусь: Знай свой край\n\n" +
             "Многопользовательская викторина-баттл\n" +
             "о географии, истории, культуре и природе Беларуси.\n\n" +
-            "60 вопросов в 6 категориях.\n" +
+            "⭐ Система очков:\n" +
+            "  +100 за правильный ответ\n" +
+            "  до +50 бонус за скорость\n" +
+            "  до +50 бонус за серию\n" +
+            "  максимум 200 очков за вопрос\n\n" +
             "C# · WPF · SignalR · .NET 8",
             "О игре", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -108,11 +104,7 @@ public partial class MainMenuPage : Page
 
     private bool ValidateLogin()
     {
-        if (!_app.IsLoggedIn)
-        {
-            _app.Nav.Navigate(new LoginPage());
-            return false;
-        }
+        if (!_app.IsLoggedIn) { _app.Nav.Navigate(new LoginPage()); return false; }
         return true;
     }
 

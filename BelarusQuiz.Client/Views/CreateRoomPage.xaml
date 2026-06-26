@@ -1,0 +1,349 @@
+﻿<Page x:Class="BelarusQuiz.Client.Views.CreateRoomPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Создать комнату">
+
+    <Page.Resources>
+        <Style x:Key="BtnGreen" TargetType="Button">
+            <Setter Property="Background" Value="#1A6E30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="12" Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="14" Opacity="0.4"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#22913E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BtnBack" TargetType="Button">
+            <Setter Property="Background" Value="#0E2212"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#2A4A2C"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="38"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#162A1A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Кнопка категории — неактивная -->
+        <Style x:Key="BtnCat" TargetType="Button">
+            <Setter Property="Background" Value="#0E2212"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#1E3A22"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="12">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#162A1A"/>
+                                <Setter TargetName="bd" Property="BorderBrush" Value="#2A5A2C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Кнопка категории — активная -->
+        <Style x:Key="BtnCatActive" TargetType="Button" BasedOn="{StaticResource BtnCat}">
+            <Setter Property="Background" Value="#1A4E28"/>
+            <Setter Property="BorderBrush" Value="#2ECC40"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <!-- Фон -->
+        <Rectangle>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#071209" Offset="0"/>
+                    <GradientStop Color="#0B1C0E" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.1*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ══ ЛЕВАЯ: Выбор категории ══ -->
+            <Grid Grid.Column="0">
+                <Rectangle>
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#071209" Offset="0"/>
+                            <GradientStop Color="#0C1E0F" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <StackPanel VerticalAlignment="Center" Margin="40,0">
+                    <Grid Margin="0,0,0,28">
+                        <Button Content="←" Style="{StaticResource BtnBack}"
+                                HorizontalAlignment="Left" Click="BtnBack_Click"/>
+                        <TextBlock Text="Выбор категории" FontSize="22" FontWeight="Bold"
+                                   Foreground="White" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <TextBlock Text="Нажми на категорию чтобы выбрать"
+                               FontSize="12" Foreground="#3A6040"
+                               HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+                    <!-- Категория: Все -->
+                    <Button x:Name="BtnCatAll" Style="{StaticResource BtnCatActive}"
+                            Click="BtnCat_Click" Tag="All" Margin="0,0,0,8">
+                        <StackPanel>
+                            <TextBlock Text="🎲 Все категории" FontSize="15" FontWeight="Bold"
+                                       Foreground="White" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Случайные вопросы из всех тем"
+                                       FontSize="11" Foreground="#4A8A50" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Сетка 2х3 -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="8"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="8"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="BtnCatGeo" Grid.Column="0" Grid.Row="0"
+                                Style="{StaticResource BtnCat}" Click="BtnCat_Click" Tag="Geography">
+                            <StackPanel>
+                                <TextBlock Text="🗺️" FontSize="26" HorizontalAlignment="Center"/>
+                                <TextBlock Text="География" FontSize="13" FontWeight="SemiBold"
+                                           Foreground="White" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnCatHist" Grid.Column="2" Grid.Row="0"
+                                Style="{StaticResource BtnCat}" Click="BtnCat_Click" Tag="History">
+                            <StackPanel>
+                                <TextBlock Text="📜" FontSize="26" HorizontalAlignment="Center"/>
+                                <TextBlock Text="История" FontSize="13" FontWeight="SemiBold"
+                                           Foreground="White" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnCatCult" Grid.Column="0" Grid.Row="2"
+                                Style="{StaticResource BtnCat}" Click="BtnCat_Click" Tag="Culture">
+                            <StackPanel>
+                                <TextBlock Text="🎭" FontSize="26" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Культура" FontSize="13" FontWeight="SemiBold"
+                                           Foreground="White" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnCatNat" Grid.Column="2" Grid.Row="2"
+                                Style="{StaticResource BtnCat}" Click="BtnCat_Click" Tag="Nature">
+                            <StackPanel>
+                                <TextBlock Text="🌿" FontSize="26" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Природа" FontSize="13" FontWeight="SemiBold"
+                                           Foreground="White" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnCatSym" Grid.Column="0" Grid.Row="4"
+                                Style="{StaticResource BtnCat}" Click="BtnCat_Click" Tag="Symbols">
+                            <StackPanel>
+                                <TextBlock Text="🏛️" FontSize="26" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Символика" FontSize="13" FontWeight="SemiBold"
+                                           Foreground="White" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnCatPpl" Grid.Column="2" Grid.Row="4"
+                                Style="{StaticResource BtnCat}" Click="BtnCat_Click" Tag="People">
+                            <StackPanel>
+                                <TextBlock Text="🧑" FontSize="26" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Люди" FontSize="13" FontWeight="SemiBold"
+                                           Foreground="White" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+
+            <Rectangle Grid.Column="0" Width="1" HorizontalAlignment="Right" Fill="#1A3A1E"/>
+
+            <!-- ══ ПРАВАЯ: Настройки игры ══ -->
+            <Grid Grid.Column="1">
+                <Rectangle>
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#081009" Offset="0"/>
+                            <GradientStop Color="#0A1A0C" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <StackPanel VerticalAlignment="Center" Margin="40,0">
+
+                    <TextBlock Text="⚙ Настройки игры" FontSize="20" FontWeight="Bold"
+                               Foreground="White" Margin="0,0,0,28"/>
+
+                    <!-- Количество раундов -->
+                    <TextBlock Text="КОЛИЧЕСТВО РАУНДОВ" FontSize="11" FontWeight="Bold"
+                               Foreground="#4A8A50" Margin="0,0,0,10"/>
+                    <Grid Margin="0,0,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="BtnR5"  Grid.Column="0" Content="5"  Tag="5"
+                                Style="{StaticResource BtnCatActive}" Height="50"
+                                Click="BtnRounds_Click" FontSize="16" FontWeight="Bold"/>
+                        <Button x:Name="BtnR10" Grid.Column="2" Content="10" Tag="10"
+                                Style="{StaticResource BtnCat}" Height="50"
+                                Click="BtnRounds_Click" FontSize="16" FontWeight="Bold"/>
+                        <Button x:Name="BtnR15" Grid.Column="4" Content="15" Tag="15"
+                                Style="{StaticResource BtnCat}" Height="50"
+                                Click="BtnRounds_Click" FontSize="16" FontWeight="Bold"/>
+                        <Button x:Name="BtnR20" Grid.Column="6" Content="20" Tag="20"
+                                Style="{StaticResource BtnCat}" Height="50"
+                                Click="BtnRounds_Click" FontSize="16" FontWeight="Bold"/>
+                    </Grid>
+
+                    <!-- Время на ответ -->
+                    <TextBlock Text="ВРЕМЯ НА ОТВЕТ (СЕК.)" FontSize="11" FontWeight="Bold"
+                               Foreground="#4A8A50" Margin="0,0,0,10"/>
+                    <Grid Margin="0,0,0,28">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="BtnT10" Grid.Column="0" Content="10 сек" Tag="10"
+                                Style="{StaticResource BtnCat}" Height="50"
+                                Click="BtnTimer_Click" FontSize="13" FontWeight="Bold"/>
+                        <Button x:Name="BtnT15" Grid.Column="2" Content="15 сек" Tag="15"
+                                Style="{StaticResource BtnCatActive}" Height="50"
+                                Click="BtnTimer_Click" FontSize="13" FontWeight="Bold"/>
+                        <Button x:Name="BtnT30" Grid.Column="4" Content="30 сек" Tag="30"
+                                Style="{StaticResource BtnCat}" Height="50"
+                                Click="BtnTimer_Click" FontSize="13" FontWeight="Bold"/>
+                    </Grid>
+
+                    <!-- Блок начисления очков -->
+                    <Border Background="#0E2212" CornerRadius="12" Padding="16,14"
+                            BorderBrush="#1E3A22" BorderThickness="1" Margin="0,0,0,24">
+                        <StackPanel>
+                            <TextBlock Text="⭐ Как начисляются очки?" FontSize="13"
+                                       FontWeight="Bold" Foreground="White" Margin="0,0,0,10"/>
+                            <Grid Margin="0,0,0,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Правильный ответ" Foreground="#4A7A50" FontSize="12"/>
+                                <TextBlock Grid.Column="1" Text="+100 очков" Foreground="#2ECC40"
+                                           FontSize="12" FontWeight="Bold"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Бонус за скорость" Foreground="#4A7A50" FontSize="12"/>
+                                <TextBlock Grid.Column="1" Text="до +50" Foreground="#F1C40F"
+                                           FontSize="12" FontWeight="Bold"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Серия правильных" Foreground="#4A7A50" FontSize="12"/>
+                                <TextBlock Grid.Column="1" Text="до +50" Foreground="#E67E22"
+                                           FontSize="12" FontWeight="Bold"/>
+                            </Grid>
+                            <Border Height="1" Background="#1E3A22" Margin="0,6"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Максимум за вопрос" Foreground="White"
+                                           FontSize="12" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="1" Text="200 очков" Foreground="White"
+                                           FontSize="12" FontWeight="Bold"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Выбранная категория -->
+                    <Border Background="#0E2212" CornerRadius="10" Padding="14,10"
+                            BorderBrush="#1E3A22" BorderThickness="1" Margin="0,0,0,20">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Категория: " Foreground="#4A7A50" FontSize="13"/>
+                            <TextBlock x:Name="TbSelectedCat" Text="🎲 Все категории"
+                                       Foreground="White" FontSize="13" FontWeight="Bold"/>
+                            <TextBlock Text="  •  Раундов: " Foreground="#4A7A50" FontSize="13"/>
+                            <TextBlock x:Name="TbSelectedRounds" Text="5"
+                                       Foreground="White" FontSize="13" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Создать -->
+                    <Button Content="🎮  СОЗДАТЬ КОМНАТУ" Style="{StaticResource BtnGreen}"
+                            Click="BtnCreate_Click" Margin="0,0,0,10"/>
+
+                    <TextBlock x:Name="TbStatus" Text="" Foreground="#E74C3C"
+                               FontSize="13" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

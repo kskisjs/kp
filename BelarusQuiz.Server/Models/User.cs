@@ -1,4 +1,5 @@
-﻿namespace BelarusQuiz.Server.Models;
+﻿using System;
+namespace BelarusQuiz.Server.Models;
 
 // Путь: BelarusQuiz.Server/Models/User.cs
 

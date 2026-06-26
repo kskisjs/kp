@@ -11,10 +11,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=quiz.db"));
-
-builder.Services.AddSignalR();
+builder.Services.AddDbContext<AppDbContext>(opt =>
+    opt.UseSqlServer("Server=localhost;Database=BelarusQuizDB;Trusted_Connection=True;TrustServerCertificate=True")); builder.Services.AddSignalR();
 builder.Services.AddSingleton<RoomService>();
 builder.Services.AddSingleton<ScoreService>();
 builder.Services.AddCors(o => o.AddDefaultPolicy(p =>

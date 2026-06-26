@@ -1,71 +1,168 @@
 <Page x:Class="BelarusQuiz.Client.Views.ResultsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Background="#0D1F0F">
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="500"/>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
+      Title="Результаты">
 
-    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+    <Page.Resources>
+        <Style x:Key="BtnGreen" TargetType="Button">
+            <Setter Property="Background" Value="#1A6E30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="12" Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="14" Opacity="0.4"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#22913E"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BtnDark" TargetType="Button">
+            <Setter Property="Background" Value="#0E2212"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="12" Background="{TemplateBinding Background}"
+                                BorderBrush="#1E3A22" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#162A1A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
-      <!-- Трофей -->
-      <TextBlock x:Name="TbTrophy" Text="🏆" FontSize="72"
-                 HorizontalAlignment="Center" Margin="0,0,0,8"/>
-      <TextBlock x:Name="TbResult" FontSize="40" FontWeight="Black"
-                 Foreground="#2ECC40" HorizontalAlignment="Center"/>
-      <TextBlock x:Name="TbSubtitle" Text="Отличная игра!"
-                 FontSize="16" Foreground="#7AAB7C"
-                 HorizontalAlignment="Center" Margin="0,4,0,32"/>
+    <Grid>
+        <!-- Фон -->
+        <Rectangle>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#071209" Offset="0"/>
+                    <GradientStop Color="#0B1C0E" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
 
-      <!-- Счёт -->
-      <Border Style="{StaticResource Card}" Margin="0,0,0,20">
-        <ItemsControl x:Name="ScoresList">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Grid Margin="0,0,0,12">
+        <!-- Декоративное свечение -->
+        <Ellipse Width="600" Height="600" HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Opacity="0.12">
+            <Ellipse.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Color="#2ECC40" Offset="0"/>
+                    <GradientStop Color="Transparent" Offset="1"/>
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <!-- Контент по центру -->
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Width="520" Margin="0,24">
+
+            <!-- Трофей -->
+            <TextBlock x:Name="TbTrophy" Text="🏆" FontSize="72"
+                       HorizontalAlignment="Center" Margin="0,0,0,8">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="30" Opacity="0.5"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <!-- Результат -->
+            <TextBlock x:Name="TbResult" Text="Победа!" FontSize="42" FontWeight="Black"
+                       HorizontalAlignment="Center" Margin="0,0,0,6">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="20" Opacity="0.6"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock x:Name="TbSubtitle" Text="Отличная игра!" FontSize="14"
+                       Foreground="#4A7A50" HorizontalAlignment="Center" Margin="0,0,0,28"/>
+
+            <!-- Таблица очков -->
+            <Border Background="#0C1A0E" CornerRadius="16" Padding="0,8"
+                    BorderBrush="#1E3A22" BorderThickness="1" Margin="0,0,0,16">
+                <ItemsControl x:Name="ScoresList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding RowBackground}" CornerRadius="10"
+                                    Margin="10,4" Padding="16,14">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Медаль -->
+                                    <TextBlock Grid.Column="0" Text="{Binding Medal}"
+                                               FontSize="24" Margin="0,0,14,0"
+                                               VerticalAlignment="Center"/>
+
+                                    <!-- Никнейм -->
+                                    <TextBlock Grid.Column="1" Text="{Binding Nickname}"
+                                               FontSize="16" FontWeight="SemiBold"
+                                               Foreground="White" VerticalAlignment="Center"/>
+
+                                    <!-- ★ Очки — крупно и ярко -->
+                                    <TextBlock Grid.Column="2" Text="{Binding Score}"
+                                               FontSize="20" FontWeight="Black"
+                                               Foreground="{Binding ScoreColor}"
+                                               VerticalAlignment="Center">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect Color="#FFD700" ShadowDepth="0"
+                                                              BlurRadius="8" Opacity="0.4"/>
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+            <!-- XP -->
+            <Border Background="#0E2212" CornerRadius="12" Padding="16,12"
+                    BorderBrush="#1E3A22" BorderThickness="1" Margin="0,0,0,24"
+                    HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="⭐  Получено XP: " FontSize="14" Foreground="#4A7A50"/>
+                    <TextBlock x:Name="TbXp" Text="+50" FontSize="14" FontWeight="Bold"
+                               Foreground="#F1C40F"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Кнопки -->
+            <Grid>
                 <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="40"/>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding Medal}"
-                           FontSize="24" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="1" Text="{Binding Nickname}"
-                           FontSize="16" FontWeight="SemiBold"
-                           Foreground="#FFFFFF" VerticalAlignment="Center" Margin="8,0"/>
-                <TextBlock Grid.Column="2" Text="{Binding Score}"
-                           FontSize="24" FontWeight="Black"
-                           Foreground="{Binding ScoreColor}"
-                           HorizontalAlignment="Right" VerticalAlignment="Center"/>
-              </Grid>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </Border>
-
-      <!-- XP заработано -->
-      <Border Background="#162B18" CornerRadius="10" Padding="16,12" Margin="0,0,0,28">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-          <TextBlock Text="⭐ Получено XP: " FontSize="16" Foreground="#7AAB7C"/>
-          <TextBlock x:Name="TbXp" FontSize="16" FontWeight="Bold" Foreground="#FFD700"/>
+                <Button Grid.Column="0" Content="🏠  В МЕНЮ" Style="{StaticResource BtnDark}"
+                        Click="BtnMenu_Click"/>
+                <Button Grid.Column="2" Content="🎮  ИГРАТЬ СНОВА" Style="{StaticResource BtnGreen}"
+                        Click="BtnPlayAgain_Click"/>
+            </Grid>
         </StackPanel>
-      </Border>
-
-      <!-- Кнопки -->
-      <Grid>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="16"/>
-          <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Content="🏠  В МЕНЮ"
-                Style="{StaticResource BtnDark}" Click="BtnMenu_Click"/>
-        <Button Grid.Column="2" Content="🔄  ИГРАТЬ СНОВА"
-                Style="{StaticResource BtnGreen}" Click="BtnPlayAgain_Click"/>
-      </Grid>
-    </StackPanel>
-  </Grid>
+    </Grid>
 </Page>

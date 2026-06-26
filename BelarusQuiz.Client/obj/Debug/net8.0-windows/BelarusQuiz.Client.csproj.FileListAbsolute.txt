@@ -59,3 +59,5 @@ D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Client\obj\
 D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Client\obj\Debug\net8.0-windows\Views\LeaderboardPage.g.cs
 D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Client\obj\Debug\net8.0-windows\Views\RegisterPage.g.cs
 D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Client\obj\Debug\net8.0-windows\Views\SettingsPage.g.cs
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Client\obj\Debug\net8.0-windows\Views\CreateRoomPage.baml
+D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Client\obj\Debug\net8.0-windows\Views\CreateRoomPage.g.cs

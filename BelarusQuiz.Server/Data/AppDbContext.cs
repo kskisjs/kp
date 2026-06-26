@@ -1,8 +1,5 @@
 ﻿using BelarusQuiz.Server.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-
-namespace BelarusQuiz.Server.Data;
 
 public class AppDbContext : DbContext
 {
@@ -12,4 +9,6 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<User> Users => Set<User>();
+    public DbSet<GameHistory> GameHistories => Set<GameHistory>();
+    public DbSet<UserAchievement> UserAchievements => Set<UserAchievement>();
 }
