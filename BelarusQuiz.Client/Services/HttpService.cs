@@ -1,6 +1,4 @@
-﻿// Путь: BelarusQuiz.Client/Services/HttpService.cs  (НОВЫЙ ФАЙЛ)
-
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Json;
 using BelarusQuiz.Shared.Models;
 
@@ -9,7 +7,6 @@ namespace BelarusQuiz.Client.Services;
 public class HttpService
 {
     private readonly HttpClient _http = new();
-
     private string BaseUrl => AppState.Instance.ServerUrl;
 
     public async Task<LoginResultDto> RegisterAsync(RegisterDto dto)
@@ -40,26 +37,45 @@ public class HttpService
         }
     }
 
+    // Старый метод (оставлен для совместимости)
     public async Task UpdateStatsAsync(string login, bool won, int score)
+    {
+        await SaveGameAsync(login, won, score, 0, "Соперник", "Мультиплеер", 10);
+    }
+
+    // ★ НОВЫЙ метод — полная статистика игры
+    public async Task SaveGameAsync(
+        string login,
+        bool won,
+        int myScore,
+        int opponentScore = 0,
+        string opponentNickname = "Бот",
+        string category = "Все категории",
+        int rounds = 10)
     {
         try
         {
-            await _http.PostAsJsonAsync($"{BaseUrl}/game/stats",
-                new { Login = login, Won = won, Score = score });
+            await _http.PostAsJsonAsync($"{BaseUrl}/game/stats", new
+            {
+                Login = login,
+                Won = won,
+                Score = myScore,
+                OpponentScore = opponentScore,
+                OpponentNickname = opponentNickname,
+                Category = category,
+                Rounds = rounds
+            });
         }
-        catch { /* игнорируем — статистика не критична */ }
+        catch { /* статистика не критична */ }
     }
 
     public async Task<List<LeaderboardEntry>> GetLeaderboardAsync()
     {
         try
         {
-            var result = await _http.GetFromJsonAsync<List<LeaderboardEntry>>($"{BaseUrl}/leaderboard");
-            return result ?? new();
+            return await _http.GetFromJsonAsync<List<LeaderboardEntry>>($"{BaseUrl}/leaderboard")
+                   ?? new();
         }
-        catch
-        {
-            return new();
-        }
+        catch { return new(); }
     }
 }

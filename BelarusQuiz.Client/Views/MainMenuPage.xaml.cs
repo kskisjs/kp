@@ -64,7 +64,7 @@ public partial class MainMenuPage : Page
     }
 
     private void BtnSolo_Click(object sender, RoutedEventArgs e)
-        => _app.Nav.Navigate(new SoloGamePage());
+        => _app.Nav.Navigate(new SoloSetupPage());
 
     private void BtnSettings_Click(object sender, RoutedEventArgs e)
         => _app.Nav.Navigate(new SettingsPage());

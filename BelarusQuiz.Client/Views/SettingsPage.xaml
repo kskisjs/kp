@@ -57,19 +57,24 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="#2A4A2C"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Width" Value="38"/>
-            <Setter Property="Height" Value="38"/>
-            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="8">
+                                CornerRadius="8" Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#162A1A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -133,90 +138,102 @@
                     </Rectangle.Fill>
                 </Rectangle>
 
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
-                            Margin="40" MaxWidth="360">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <!-- Кнопка назад всегда сверху -->
+                        <RowDefinition Height="Auto"/>
+                        <!-- Профиль по центру -->
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                    <!-- Назад + заголовок -->
-                    <Grid Margin="0,0,0,32">
-                        <Button Content="←" Style="{StaticResource BtnBack}"
-                                HorizontalAlignment="Left" Click="BtnBack_Click"/>
-                        <TextBlock Text="⚙  Настройки" FontSize="22" FontWeight="Bold"
+                    <!-- Кнопка назад — СВЕРХУ -->
+                    <Button Grid.Row="0" Content="← Назад в меню"
+                            Style="{StaticResource BtnBack}"
+                            HorizontalAlignment="Left"
+                            Margin="20,20,0,0"
+                            Click="BtnBack_Click"/>
+
+                    <!-- Профиль по центру -->
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center"
+                                HorizontalAlignment="Center" Margin="40" MaxWidth="320">
+
+                        <!-- Заголовок -->
+                        <TextBlock Text="Настройки" FontSize="22" FontWeight="Bold"
                                    Foreground="White" HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"/>
-                    </Grid>
+                                   Margin="0,0,0,24"/>
 
-                    <!-- Большой аватар -->
-                    <Grid Width="110" Height="110" HorizontalAlignment="Center" Margin="0,0,0,16">
-                        <Ellipse Fill="#1A6E30">
-                            <Ellipse.Effect>
-                                <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="24" Opacity="0.5"/>
-                            </Ellipse.Effect>
-                        </Ellipse>
-                        <Ellipse Margin="7" Stroke="#2ECC40" StrokeThickness="2" Fill="Transparent"/>
-                        <TextBlock x:Name="TbInitials" Text="??" FontSize="38"
+                        <!-- Аватар -->
+                        <Grid Width="100" Height="100" HorizontalAlignment="Center" Margin="0,0,0,14">
+                            <Ellipse Fill="#1A6E30">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="22" Opacity="0.5"/>
+                                </Ellipse.Effect>
+                            </Ellipse>
+                            <Ellipse Margin="7" Stroke="#2ECC40" StrokeThickness="2" Fill="Transparent"/>
+                            <TextBlock x:Name="TbInitials" Text="??" FontSize="34"
+                                       FontWeight="Black" Foreground="White"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <TextBlock x:Name="TbNickname" Text="Игрок" FontSize="22"
                                    FontWeight="Black" Foreground="White"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Grid>
+                                   HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                        <TextBlock x:Name="TbLoginText" Text="" FontSize="12"
+                                   Foreground="#3A6040" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                        <Border Background="#1A6E30" CornerRadius="8" Padding="12,5"
+                                HorizontalAlignment="Center" Margin="0,0,0,24">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="8" Opacity="0.4"/>
+                            </Border.Effect>
+                            <TextBlock x:Name="TbLevel" Text="Уровень 1" FontSize="13"
+                                       FontWeight="Bold" Foreground="White"/>
+                        </Border>
 
-                    <!-- Имя -->
-                    <TextBlock x:Name="TbNickname" Text="Игрок" FontSize="24"
-                               FontWeight="Black" Foreground="White"
-                               HorizontalAlignment="Center" Margin="0,0,0,4"/>
-                    <TextBlock x:Name="TbLoginText" Text="" FontSize="12"
-                               Foreground="#3A6040" HorizontalAlignment="Center" Margin="0,0,0,4"/>
-                    <Border Background="#1A6E30" CornerRadius="8" Padding="14,6"
-                            HorizontalAlignment="Center" Margin="0,0,0,28">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="10" Opacity="0.4"/>
-                        </Border.Effect>
-                        <TextBlock x:Name="TbLevel" Text="Уровень 1" FontSize="14"
-                                   FontWeight="Bold" Foreground="White"/>
-                    </Border>
-
-                    <!-- Статистика 3 плитки -->
-                    <Grid Margin="0,0,0,10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="8"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="8"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="0" Background="#0E2212" CornerRadius="12"
-                                Padding="8,16" BorderBrush="#1E3A22" BorderThickness="1">
-                            <StackPanel HorizontalAlignment="Center">
-                                <TextBlock Text="🏆" FontSize="22" HorizontalAlignment="Center"/>
-                                <TextBlock x:Name="TbWins" Text="0" FontSize="22"
-                                           FontWeight="Black" Foreground="#2ECC40"
-                                           HorizontalAlignment="Center"/>
-                                <TextBlock Text="Побед" FontSize="10" Foreground="#3A6040"
-                                           HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Grid.Column="2" Background="#0E2212" CornerRadius="12"
-                                Padding="8,16" BorderBrush="#1E3A22" BorderThickness="1">
-                            <StackPanel HorizontalAlignment="Center">
-                                <TextBlock Text="🎮" FontSize="22" HorizontalAlignment="Center"/>
-                                <TextBlock x:Name="TbGames" Text="0" FontSize="22"
-                                           FontWeight="Black" Foreground="White"
-                                           HorizontalAlignment="Center"/>
-                                <TextBlock Text="Игр" FontSize="10" Foreground="#3A6040"
-                                           HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Grid.Column="4" Background="#0E2212" CornerRadius="12"
-                                Padding="8,16" BorderBrush="#1E3A22" BorderThickness="1">
-                            <StackPanel HorizontalAlignment="Center">
-                                <TextBlock Text="⭐" FontSize="22" HorizontalAlignment="Center"/>
-                                <TextBlock x:Name="TbScore" Text="0" FontSize="22"
-                                           FontWeight="Black" Foreground="#F1C40F"
-                                           HorizontalAlignment="Center"/>
-                                <TextBlock Text="Очков" FontSize="10" Foreground="#3A6040"
-                                           HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                    </Grid>
-                </StackPanel>
+                        <!-- Статистика -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="8"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="8"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Background="#0E2212" CornerRadius="12"
+                                    Padding="8,16" BorderBrush="#1E3A22" BorderThickness="1">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="🏆" FontSize="20" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="TbWins" Text="0" FontSize="20"
+                                               FontWeight="Black" Foreground="#2ECC40"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Побед" FontSize="10" Foreground="#3A6040"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="2" Background="#0E2212" CornerRadius="12"
+                                    Padding="8,16" BorderBrush="#1E3A22" BorderThickness="1">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="🎮" FontSize="20" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="TbGames" Text="0" FontSize="20"
+                                               FontWeight="Black" Foreground="White"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Игр" FontSize="10" Foreground="#3A6040"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="4" Background="#0E2212" CornerRadius="12"
+                                    Padding="8,16" BorderBrush="#1E3A22" BorderThickness="1">
+                                <StackPanel HorizontalAlignment="Center">
+                                    <TextBlock Text="⭐" FontSize="20" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="TbScore" Text="0" FontSize="20"
+                                               FontWeight="Black" Foreground="#F1C40F"
+                                               HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Очков" FontSize="10" Foreground="#3A6040"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
             </Grid>
 
             <Rectangle Grid.Column="0" Width="1" HorizontalAlignment="Right" Fill="#1A3A1E"/>
@@ -233,45 +250,42 @@
                 </Rectangle>
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="48,40">
+                    <StackPanel Margin="48,36">
 
                         <TextBlock Text="Подключение" FontSize="20" FontWeight="Bold"
-                                   Foreground="White" Margin="0,0,0,20"/>
+                                   Foreground="White" Margin="0,0,0,16"/>
 
                         <TextBlock Text="АДРЕС СЕРВЕРА" FontSize="11" FontWeight="Bold"
                                    Foreground="#4A8A50" Margin="0,0,0,8"/>
                         <TextBox x:Name="TbServer" Style="{StaticResource Input}" Margin="0,0,0,8"/>
 
-                        <!-- Подсказка про интернет -->
+                        <!-- Подсказка как играть с другом -->
                         <Border Background="#0E2212" CornerRadius="10" Padding="14,12"
-                                BorderBrush="#1E3A22" BorderThickness="1" Margin="0,0,0,24">
+                                BorderBrush="#1E3A22" BorderThickness="1" Margin="0,0,0,28">
                             <StackPanel>
-                                <TextBlock Text="🌐 Игра через интернет" FontSize="13"
+                                <TextBlock Text="Игра с другом по сети" FontSize="13"
                                            FontWeight="SemiBold" Foreground="White" Margin="0,0,0,8"/>
-                                <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#4A7A50"
-                                           Margin="0,0,0,6">
-                                    <Run Text="1. Скачай "/>
-                                    <Run Text="ngrok.com" Foreground="#2ECC40" FontWeight="Bold"/>
-                                    <Run Text=" → запусти: ngrok http 5000"/>
-                                </TextBlock>
-                                <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#4A7A50"
-                                           Margin="0,0,0,6"
-                                           Text="2. Получишь ссылку: https://abc123.ngrok.io"/>
-                                <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#4A7A50"
-                                           Text="3. Отправь эту ссылку другу — он введёт её сюда"/>
+                                <TextBlock Text="1. Узнай свой IP: нажми Win+R → cmd → ipconfig"
+                                           TextWrapping="Wrap" FontSize="12" Foreground="#4A7A50" Margin="0,0,0,4"/>
+                                <TextBlock Text="2. Запусти сервер на своём компьютере"
+                                           TextWrapping="Wrap" FontSize="12" Foreground="#4A7A50" Margin="0,0,0,4"/>
+                                <TextBlock Text="3. Другу скажи твой IP и код комнаты"
+                                           TextWrapping="Wrap" FontSize="12" Foreground="#4A7A50" Margin="0,0,0,4"/>
+                                <TextBlock Text="4. Друг вводит http://ТВОЙ_IP:5000 в это поле"
+                                           TextWrapping="Wrap" FontSize="12" Foreground="#4A7A50"/>
                             </StackPanel>
                         </Border>
 
                         <TextBlock Text="Аккаунт" FontSize="20" FontWeight="Bold"
-                                   Foreground="White" Margin="0,0,0,20"/>
+                                   Foreground="White" Margin="0,0,0,16"/>
 
-                        <Button Content="💾  СОХРАНИТЬ НАСТРОЙКИ" Style="{StaticResource BtnGreen}"
+                        <Button Content="Сохранить настройки" Style="{StaticResource BtnGreen}"
                                 Click="BtnSave_Click" Margin="0,0,0,10"/>
 
                         <TextBlock x:Name="TbStatus" Text="" Foreground="#2ECC40"
                                    FontSize="13" HorizontalAlignment="Center" Margin="0,0,0,16"/>
 
-                        <Button Content="🚪  ВЫЙТИ ИЗ АККАУНТА" Style="{StaticResource BtnRed}"
+                        <Button Content="Выйти из аккаунта" Style="{StaticResource BtnRed}"
                                 Click="BtnLogout_Click"/>
 
                     </StackPanel>

@@ -1,88 +1,290 @@
 <Page x:Class="BelarusQuiz.Client.Views.LobbyPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Background="#0D1F0F">
-  <Grid Margin="40">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
+      Title="Лобби">
 
-    <!-- Заголовок -->
-    <Grid Grid.Row="0" Margin="0,0,0,24">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="Auto"/>
-      </Grid.ColumnDefinitions>
-      <Button Grid.Column="0" Content="← Выйти" Style="{StaticResource BtnDark}"
-              Height="36" Padding="16,0" Click="BtnLeave_Click"/>
-      <TextBlock Grid.Column="1" Text="ЛОББИ" FontSize="22" FontWeight="Black"
-                 Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-      <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-        <TextBlock Text="КОД КОМНАТЫ" FontSize="10" Foreground="#7AAB7C"/>
-        <TextBlock x:Name="TbCode" FontSize="28" FontWeight="Black"
-                   Foreground="#2ECC40"/>
-      </StackPanel>
-    </Grid>
+    <Page.Resources>
+        <Style x:Key="BtnGreen" TargetType="Button">
+            <Setter Property="Background" Value="#1A6E30"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="10" Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="12" Opacity="0.4"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#22913E"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bd" Property="Background" Value="#0E3A18"/>
+                                <Setter TargetName="bd" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-    <!-- Настройки комнаты -->
-    <Border Grid.Row="1" Style="{StaticResource Card}" Margin="0,0,0,20">
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-        <TextBlock Text="⚔ Режим: Баттл" Foreground="#7AAB7C" FontSize="13" Margin="0,0,24,0"/>
-        <TextBlock x:Name="TbRounds" Foreground="#7AAB7C" FontSize="13" Margin="0,0,24,0"/>
-        <TextBlock x:Name="TbTimer" Foreground="#7AAB7C" FontSize="13"/>
-      </StackPanel>
-    </Border>
+        <Style x:Key="BtnDark" TargetType="Button">
+            <Setter Property="Background" Value="#0E2212"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="10" Background="{TemplateBinding Background}"
+                                BorderBrush="#1E3A22" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#162A1A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-    <!-- Список игроков -->
-    <Border Grid.Row="2" Style="{StaticResource Card}">
-      <StackPanel>
-        <TextBlock Text="ИГРОКИ" FontSize="12" FontWeight="Bold"
-                   Foreground="#7AAB7C" Margin="0,0,0,16"/>
-        <ItemsControl x:Name="PlayersList">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Border Background="#1E3820" CornerRadius="8" Padding="16,12" Margin="0,0,0,8">
-                <Grid>
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                  </Grid.ColumnDefinitions>
-                  <TextBlock Grid.Column="0" Text="👤" FontSize="24" VerticalAlignment="Center"/>
-                  <TextBlock Grid.Column="1" Text="{Binding Nickname}"
-                             FontSize="15" FontWeight="SemiBold"
-                             Foreground="#FFFFFF" VerticalAlignment="Center" Margin="12,0,0,0"/>
-                  <TextBlock Grid.Column="2" Text="{Binding StatusText}"
-                             FontSize="13" FontWeight="Bold"
-                             Foreground="{Binding StatusColor}" VerticalAlignment="Center"/>
+        <Style x:Key="BtnRed" TargetType="Button">
+            <Setter Property="Background" Value="#3A0D0D"/>
+            <Setter Property="Foreground" Value="#E74C3C"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="8" Background="{TemplateBinding Background}"
+                                BorderBrush="#7A1A1A" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#4A1A1A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnCopy" TargetType="Button">
+            <Setter Property="Background" Value="#0E2212"/>
+            <Setter Property="Foreground" Value="#2ECC40"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" CornerRadius="8" Background="{TemplateBinding Background}"
+                                BorderBrush="#2ECC40" BorderThickness="1"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#162A1A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <!-- Фон -->
+        <Rectangle>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#071209" Offset="0"/>
+                    <GradientStop Color="#0B1C0E" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!-- Центральная карточка лобби -->
+        <Border MaxWidth="580" VerticalAlignment="Center"
+                Background="#0A1A0C" CornerRadius="20"
+                BorderBrush="#1E3A22" BorderThickness="1"
+                Padding="32,28">
+            <Border.Effect>
+                <DropShadowEffect Color="#000000" ShadowDepth="0" BlurRadius="40" Opacity="0.6"/>
+            </Border.Effect>
+
+            <StackPanel>
+
+                <!-- Заголовок -->
+                <TextBlock Text="Лобби" FontSize="26" FontWeight="Black"
+                           Foreground="White" HorizontalAlignment="Center"
+                           Margin="0,0,0,4"/>
+                <TextBlock Text="Ожидание игроков" FontSize="13"
+                           Foreground="#3A6040" HorizontalAlignment="Center"
+                           Margin="0,0,0,24"/>
+
+                <!-- Код комнаты -->
+                <Border Background="#0E2212" CornerRadius="14" Padding="20,18"
+                        BorderBrush="#2ECC40" BorderThickness="2" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="КОД КОМНАТЫ" FontSize="11" FontWeight="Bold"
+                                   Foreground="#3A6040" HorizontalAlignment="Center"
+                                   Margin="0,0,0,6"/>
+                        <TextBlock x:Name="TbCode" Text="----" FontSize="46" FontWeight="Black"
+                                   Foreground="#2ECC40" HorizontalAlignment="Center"
+                                   Margin="0,0,0,4">
+                            <TextBlock.Effect>
+                                <DropShadowEffect Color="#2ECC40" ShadowDepth="0" BlurRadius="20" Opacity="0.5"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                        <TextBlock Text="Скажи этот код другу" FontSize="12"
+                                   Foreground="#3A6040" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Блок "Скинуть другу" — TbShareInfo + BtnCopy -->
+                <Border Background="#081009" CornerRadius="10" Padding="14,12"
+                        BorderBrush="#1E3A22" BorderThickness="1" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="Скинь другу:" FontSize="11"
+                                       Foreground="#3A6040" Margin="0,0,0,4"/>
+                            <!-- ★ TbShareInfo — сюда пишется IP + код -->
+                            <TextBlock x:Name="TbShareInfo"
+                                       Text="Сервер: http://192.168.X.X:5000   Код: ----"
+                                       FontSize="12" FontWeight="SemiBold"
+                                       Foreground="White" TextWrapping="Wrap"/>
+                        </StackPanel>
+
+                        <!-- ★ BtnCopy -->
+                        <Button x:Name="BtnCopy" Grid.Column="1"
+                                Content="Копировать"
+                                Style="{StaticResource BtnCopy}"
+                                Margin="12,0,0,0"
+                                Click="BtnCopy_Click"/>
+                    </Grid>
+                </Border>
+
+                <!-- Настройки комнаты -->
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="#0E2212" CornerRadius="10"
+                            Padding="12,10" BorderBrush="#1E3A22" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="📋" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TbRounds" Text="Раундов: 10"
+                                       FontSize="12" FontWeight="SemiBold"
+                                       Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="2" Background="#0E2212" CornerRadius="10"
+                            Padding="12,10" BorderBrush="#1E3A22" BorderThickness="1">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="⏱" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TbTimer" Text="Таймер: 15 сек."
+                                       FontSize="12" FontWeight="SemiBold"
+                                       Foreground="White" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
-              </Border>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <TextBlock x:Name="TbWaiting" Text="Ожидаем игроков..."
-                   Foreground="#4A6B4C" FontSize="13"
-                   HorizontalAlignment="Center" Margin="0,16,0,0"/>
-      </StackPanel>
-    </Border>
 
-    <!-- Кнопки внизу -->
-    <Grid Grid.Row="3" Margin="0,20,0,0">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="20"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
-      <Button x:Name="BtnReady" Grid.Column="0"
-              Content="✔  Я ГОТОВ" Style="{StaticResource BtnGreen}"
-              Click="BtnReady_Click"/>
-      <Button x:Name="BtnStart" Grid.Column="2"
-              Content="▶  НАЧАТЬ ИГРУ" Style="{StaticResource BtnGreen}"
-              IsEnabled="False" Click="BtnStart_Click"/>
+                <!-- Список игроков -->
+                <Border Background="#0E2212" CornerRadius="12" Padding="0,8"
+                        BorderBrush="#1E3A22" BorderThickness="1" Margin="0,0,0,8">
+                    <StackPanel>
+                        <TextBlock Text="ИГРОКИ" FontSize="11" FontWeight="Bold"
+                                   Foreground="#3A6040" HorizontalAlignment="Center"
+                                   Margin="0,4,0,8"/>
+                        <ItemsControl x:Name="PlayersList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="12,3" Padding="14,10" CornerRadius="8"
+                                            Background="#081009">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Width="36" Height="36"
+                                                    CornerRadius="18" Background="#1A6E30"
+                                                    Margin="0,0,12,0">
+                                                <TextBlock Text="{Binding Initials}"
+                                                           FontSize="13" FontWeight="Bold"
+                                                           Foreground="White"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                            <TextBlock Grid.Column="1" Text="{Binding Nickname}"
+                                                       FontSize="14" FontWeight="SemiBold"
+                                                       Foreground="White"
+                                                       VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding StatusText}"
+                                                       FontSize="13" FontWeight="Bold"
+                                                       Foreground="{Binding StatusColor}"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <!-- Ожидание -->
+                <TextBlock x:Name="TbWaiting" Text="Ожидаем второго игрока..."
+                           FontSize="13" Foreground="#3A6040"
+                           HorizontalAlignment="Center" Margin="0,4,0,8"
+                           Visibility="Visible"/>
+
+                <!-- Кнопки -->
+                <Grid Margin="0,4,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="BtnStart" Grid.Column="0"
+                            Content="Старт" Style="{StaticResource BtnGreen}"
+                            Click="BtnStart_Click" IsEnabled="False"/>
+
+                    <Button x:Name="BtnReady" Grid.Column="2"
+                            Content="Я ГОТОВ" Style="{StaticResource BtnGreen}"
+                            Click="BtnReady_Click"/>
+
+                    <Button Grid.Column="4"
+                            Content="Выйти" Style="{StaticResource BtnRed}"
+                            Click="BtnLeave_Click"/>
+                </Grid>
+
+            </StackPanel>
+        </Border>
     </Grid>
-  </Grid>
 </Page>

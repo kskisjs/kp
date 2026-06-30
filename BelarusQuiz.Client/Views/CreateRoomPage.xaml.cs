@@ -10,12 +10,12 @@ public partial class CreateRoomPage : Page
 
     // Текущий выбор
     private QuizCategory _selectedCategory = QuizCategory.All;
-    private int _selectedRounds = 5;
+    private int _selectedQuestions = 5;  // ← изменил с Rounds на Questions
     private int _selectedTimer = 15;
 
     // Словари кнопок для переключения стилей
     private Dictionary<QuizCategory, Button> _catButtons = new();
-    private Dictionary<int, Button> _roundButtons = new();
+    private Dictionary<int, Button> _questionButtons = new();  // ← изменил
     private Dictionary<int, Button> _timerButtons = new();
 
     private bool _handlersAttached = false;
@@ -38,7 +38,7 @@ public partial class CreateRoomPage : Page
             { QuizCategory.Symbols,   BtnCatSym  },
             { QuizCategory.People,    BtnCatPpl  },
         };
-        _roundButtons = new() { { 5, BtnR5 }, { 10, BtnR10 }, { 15, BtnR15 }, { 20, BtnR20 } };
+        _questionButtons = new() { { 5, BtnQ5 }, { 10, BtnQ10 }, { 15, BtnQ15 }, { 20, BtnQ20 } };  // ← изменил
         _timerButtons = new() { { 10, BtnT10 }, { 15, BtnT15 }, { 30, BtnT30 } };
     }
 
@@ -78,18 +78,18 @@ public partial class CreateRoomPage : Page
         };
     }
 
-    // ── Выбор раундов ─────────────────────────────────────────────────────────
-    private void BtnRounds_Click(object sender, RoutedEventArgs e)
+    // ── Выбор количества вопросов ──────────────────────────────────────────────
+    private void BtnQuestions_Click(object sender, RoutedEventArgs e)  // ← изменил
     {
         var btn = (Button)sender;
-        _selectedRounds = int.Parse(btn.Tag.ToString()!);
+        _selectedQuestions = int.Parse(btn.Tag.ToString()!);  // ← изменил
 
         var activeStyle = (Style)FindResource("BtnCatActive");
         var normalStyle = (Style)FindResource("BtnCat");
-        foreach (var (_, b) in _roundButtons) b.Style = normalStyle;
+        foreach (var (_, b) in _questionButtons) b.Style = normalStyle;  // ← изменил
         btn.Style = activeStyle;
 
-        TbSelectedRounds.Text = _selectedRounds.ToString();
+        TbSelectedQuestions.Text = _selectedQuestions.ToString();  // ← изменил
     }
 
     // ── Выбор таймера ─────────────────────────────────────────────────────────
@@ -114,7 +114,7 @@ public partial class CreateRoomPage : Page
                 await _app.SignalR.ConnectAsync(_app.ServerUrl);
 
             AttachHandlers();
-            await _app.SignalR.CreateRoom(_app.Nickname, _selectedRounds, _selectedTimer, _selectedCategory);
+            await _app.SignalR.CreateRoom(_app.Nickname, _selectedQuestions, _selectedTimer, _selectedCategory);
         }
         catch (Exception ex) { TbStatus.Text = "❌ " + ex.Message; }
     }

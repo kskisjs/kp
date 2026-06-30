@@ -1,5 +1,3 @@
-
-
 using BelarusQuiz.Server.Data;
 using BelarusQuiz.Server.Hubs;
 using BelarusQuiz.Server.Models;
@@ -11,8 +9,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ═══ ИЗМЕНЕНО: LocalDB вместо локального SQL Server ═══
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseSqlServer("Server=localhost;Database=BelarusQuizDB;Trusted_Connection=True;TrustServerCertificate=True")); builder.Services.AddSignalR();
+    opt.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BelarusQuizDB;Trusted_Connection=True;TrustServerCertificate=True"));
+
+builder.Services.AddSignalR();
+
 builder.Services.AddSingleton<RoomService>();
 builder.Services.AddSingleton<ScoreService>();
 builder.Services.AddCors(o => o.AddDefaultPolicy(p =>

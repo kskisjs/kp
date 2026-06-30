@@ -227,8 +227,8 @@
                     <TextBlock Text="⚙ Настройки игры" FontSize="20" FontWeight="Bold"
                                Foreground="White" Margin="0,0,0,28"/>
 
-                    <!-- Количество раундов -->
-                    <TextBlock Text="КОЛИЧЕСТВО РАУНДОВ" FontSize="11" FontWeight="Bold"
+                    <!-- Количество вопросов -->
+                    <TextBlock Text="КОЛИЧЕСТВО ВОПРОСОВ" FontSize="11" FontWeight="Bold"
                                Foreground="#4A8A50" Margin="0,0,0,10"/>
                     <Grid Margin="0,0,0,24">
                         <Grid.ColumnDefinitions>
@@ -240,18 +240,18 @@
                             <ColumnDefinition Width="8"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="BtnR5"  Grid.Column="0" Content="5"  Tag="5"
+                        <Button x:Name="BtnQ5"  Grid.Column="0" Content="5"  Tag="5"
                                 Style="{StaticResource BtnCatActive}" Height="50"
-                                Click="BtnRounds_Click" FontSize="16" FontWeight="Bold"/>
-                        <Button x:Name="BtnR10" Grid.Column="2" Content="10" Tag="10"
+                                Click="BtnQuestions_Click" FontSize="16" FontWeight="Bold"/>
+                        <Button x:Name="BtnQ10" Grid.Column="2" Content="10" Tag="10"
                                 Style="{StaticResource BtnCat}" Height="50"
-                                Click="BtnRounds_Click" FontSize="16" FontWeight="Bold"/>
-                        <Button x:Name="BtnR15" Grid.Column="4" Content="15" Tag="15"
+                                Click="BtnQuestions_Click" FontSize="16" FontWeight="Bold"/>
+                        <Button x:Name="BtnQ15" Grid.Column="4" Content="15" Tag="15"
                                 Style="{StaticResource BtnCat}" Height="50"
-                                Click="BtnRounds_Click" FontSize="16" FontWeight="Bold"/>
-                        <Button x:Name="BtnR20" Grid.Column="6" Content="20" Tag="20"
+                                Click="BtnQuestions_Click" FontSize="16" FontWeight="Bold"/>
+                        <Button x:Name="BtnQ20" Grid.Column="6" Content="20" Tag="20"
                                 Style="{StaticResource BtnCat}" Height="50"
-                                Click="BtnRounds_Click" FontSize="16" FontWeight="Bold"/>
+                                Click="BtnQuestions_Click" FontSize="16" FontWeight="Bold"/>
                     </Grid>
 
                     <!-- Время на ответ -->
@@ -330,8 +330,8 @@
                             <TextBlock Text="Категория: " Foreground="#4A7A50" FontSize="13"/>
                             <TextBlock x:Name="TbSelectedCat" Text="🎲 Все категории"
                                        Foreground="White" FontSize="13" FontWeight="Bold"/>
-                            <TextBlock Text="  •  Раундов: " Foreground="#4A7A50" FontSize="13"/>
-                            <TextBlock x:Name="TbSelectedRounds" Text="5"
+                            <TextBlock Text="  •  Вопросов: " Foreground="#4A7A50" FontSize="13"/>
+                            <TextBlock x:Name="TbSelectedQuestions" Text="5"
                                        Foreground="White" FontSize="13" FontWeight="Bold"/>
                         </StackPanel>
                     </Border>

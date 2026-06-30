@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Client\App.xaml
-13989022582
+141632053163
 
-18222762425
+19127137907
 215-509939846
-Resources\Theme.xaml;Views\CreateRoomPage.xaml;Views\GamePage.xaml;Views\JoinRoomPage.xaml;Views\LeaderboardPage.xaml;Views\LobbyPage.xaml;Views\LoginPage.xaml;Views\MainMenuPage.xaml;Views\MainWindow.xaml;Views\RegisterPage.xaml;Views\ResultsPage.xaml;Views\SettingsPage.xaml;Views\SoloGamePage.xaml;
+Resources\Theme.xaml;Views\CreateRoomPage.xaml;Views\GamePage.xaml;Views\JoinRoomPage.xaml;Views\LeaderboardPage.xaml;Views\LobbyPage.xaml;Views\LoginPage.xaml;Views\MainMenuPage.xaml;Views\MainWindow.xaml;Views\RegisterPage.xaml;Views\ResultsPage.xaml;Views\SettingsPage.xaml;Views\SoloGamePage.xaml;Views\SoloSetupPage.xaml;
 
 False
 

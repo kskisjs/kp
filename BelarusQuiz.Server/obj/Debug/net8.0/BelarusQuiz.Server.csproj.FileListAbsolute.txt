@@ -140,4 +140,3 @@ D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Server\bin\
 D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Server\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Server\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Server\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-D:\study_3\курсач кпияп\BelarusQuiz_fixed (2)\BelarusQuiz.Server\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
